@@ -1,23 +1,23 @@
+import type { NextPage } from "next";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
 import Post from "../components/Post";
 import { sortByDate } from "../utils";
+import IPost from "../interfaces/Post";
 
-export default function Home({ posts }) {
-  return (
-    <div>
-      <div className="posts">
-        {posts.map((post, index) => (
-          <Post post={post} key={String(index)} />
-        ))}
-      </div>
+const Home: NextPage<{ posts: IPost[] }> = ({ posts }) => (
+  <div>
+    <div className="posts">
+      {posts.map((post, index) => (
+        <Post post={post} key={String(index)} />
+      ))}
     </div>
-  );
-}
+  </div>
+);
 
-export async function getStaticProps() {
+export const getStaticProps = async () => {
   const files = fs.readdirSync(path.join("posts"));
 
   const posts = files.map((fileName) => {
@@ -36,4 +36,6 @@ export async function getStaticProps() {
       posts: posts.sort(sortByDate),
     },
   };
-}
+};
+
+export default Home;

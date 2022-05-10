@@ -1,6 +1,7 @@
+import type { NextPage } from "next";
 import Link from "next/link";
 
-export default function Header() {
+const Header: NextPage = () => {
   return (
     <header>
       <div className="container">
@@ -8,4 +9,6 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+export default Header;
